@@ -1,0 +1,71 @@
+<extend name="Public/public"/>
+<block name="main">
+      <div>
+        <div class="weui-flex myinfodiv" linkto="{:U('User/selfinfo')}">
+            <div><div class="placeholder headbox1">
+              <img class="headbox" src="Uploads/{$user['headpic']}" alt="">
+              <img class="headlogo" src="__WEBPUBLIC__/Home/img/head2.png" alt="">
+            </div></div>
+            <div class="weui-flex__item"><div class="placeholder headbox2">
+              <p class="myp1"><span>{$user['name']}</span>
+              <if condition="$user['name'] eq 1">
+                <img src="__WEBPUBLIC__/Home/img/nv.png" alt="">
+                <else/>
+                <img src="__WEBPUBLIC__/Home/img/nan.png" alt="">
+              </if>
+              </p>
+              <p class="myp2">{$user['tel']}</p>
+            </div></div>
+            <div><div class="placeholder headbox3"><img src="__WEBPUBLIC__/Home/img/back2.png" alt=""></div>
+            </div>
+        </div>
+        <volist name="orderlist" id="order">
+        <div class="mymaindiv">
+            <div class="weui-cell hg30 f9">
+                <p class="c86">{$order['infotime']}</p>
+            </div>
+            <div class="maindiv white">
+              <div class="weui-flex main2">
+                <div><div class="placeholder imgbox2">
+                  <img src="__WEBPUBLIC__/Home/img/dian2.png" alt="">
+                </div></div>
+                <div class="weui-flex__item boederleftb"><div class="placeholder">
+                  <p class="hg30">{$order['kname']}--{$order['tname']}</p>
+                  <p class="hg30 p2">{$order['weekday']}{$order['htime']}</p>
+                </div></div>
+                
+                <div><div class="placeholder lookdiv">
+                  <if condition="$order['status'] eq 0">
+                    <p class="look mgt15 lookrm" oid="{$order['id']}">取消</p></div>
+                    <elseif condition="$order['status'] eq 1"/>
+                    已预约
+                    <else/>
+                    已取消
+                  </if>
+                </div>
+                
+              </div>
+            </div> 
+        </div>
+        </volist>
+        
+      </div>
+</block>
+<block name="footerjs">
+<script type="text/javascript">
+  $(".lookrm").on('click',function () {
+    var oid = $(this).attr("oid");
+    if (!confirm("您确定要取消该课程吗？")) {
+      return;
+    }
+    requestUrl("{:U('User/cancelorder')}",{oid:oid},function ( res ) {
+      layer.msg(res.message);
+      if ( res.flag == "success" ) {
+        setTimeout(function () {
+          location.reload();
+        },500);
+      }
+    })
+  });
+</script>
+</block>

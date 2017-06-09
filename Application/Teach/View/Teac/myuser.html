@@ -1,0 +1,30 @@
+<extend name="Public/header"/>
+<block name="main">
+  <body class="f9" >
+     <div class="top">
+        <div class="backdiv white hg40">
+          <img src="__WEBPUBLIC__/Home/img/back1.png" class="backimg">
+          <span>我的课程</span>
+        </div> 
+      </div>
+      <div class="pd50">
+            <div class="maindiv">
+              <volist name="userlist" id="user">
+              <div class="weui-flex main" linkto="{:U('Teac/userorder',array('oid'=>$user['id']))}">
+                <div><div class="placeholder imgbox">
+                  <img src="Uploads/{$user['headpic']}" alt="">
+                </div></div>
+                <div class="weui-flex__item"><div class="placeholder">
+                  <p class="hg80 mgleft">{$user['nick_name']}</p>
+                </div></div>
+              </div>
+              </volist>
+            </div>
+      </div>
+  </body>
+</block>
+<block name="footerjs">
+<script>
+
+</script>
+</block>

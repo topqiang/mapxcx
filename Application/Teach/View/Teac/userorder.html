@@ -1,0 +1,40 @@
+<extend name="Public/header"/>
+<block name="main">
+
+  <body class="f6" >
+     <div class="top">
+        <div class="backdiv white hg40">
+          <img src="__WEBPUBLIC__/Home/img/back1.png" class="backimg">
+          <div>课程预约</div>
+        </div>
+      </div>
+      <div class="pd60">
+          <div>
+            <p class="pt">{$user['kname']}</p>
+            <p class="pf">共{$user['ktime']}课时</p>
+          </div>
+          <div class="white userpd10">
+          
+            <div class="weui-flex mb10">
+            <div><div class="placeholder userheadbox"> 
+               <img src="Uploads/{$user['headpic']}" alt="">
+            </div></div>
+            <div class="weui-flex__item"><div class="placeholder userpd10">
+                <p class="myp1"><span>{$user['nick_name']}</span><img src="__WEBPUBLIC__/Home/img/nv.png" alt=""></p>
+                <p class="myp2">{$user['tel']}</p>
+            </div></div>
+            <div><div class="placeholder"></div></div>
+            </div>
+            <div class="usertime">
+                <span>预约时间</span>
+                <span>{$user['infotime']}--{$user['htime']}</span>             
+            </div>
+          </div>
+      </div>
+  </body>
+</block>
+<block name="footerjs">
+<script>
+
+</script>
+</block>

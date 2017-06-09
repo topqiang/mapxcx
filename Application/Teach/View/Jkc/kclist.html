@@ -1,0 +1,29 @@
+<extend name="Public/header"/>
+<block name="main">
+  <body class="f9" >
+     <div class="top">
+        <div class="backdiv white hg40">
+          <img src="__WEBPUBLIC__/Home/img/back1.png" class="backimg">
+          <span>发布课程</span>
+        </div> 
+      </div>
+      <div class="pd50">
+            <volist name="res" id="kc">
+            <div class="maindiv">
+              <div class="weui-flex main">
+                <div><div class="placeholder imgbox">
+                  <img src="Uploads/{$kc.pic}" alt="">
+                </div></div>
+                <div class="weui-flex__item"><div class="placeholder">
+                  <p class="hg40">{$kc.name}</p>
+                  <p class="hg40 p2">共{$kc.ktime}课时</p>
+                </div></div>
+                <div><div class="placeholder lookdiv" linkto="{:U('Jkc/addjkc',array('kid'=>$kc['id']))}"><p class="look mgt25">发布</p></div></div>
+              </div>
+            </div>
+            </volist>
+      </div>
+  </body>
+</block>
+<block name="footerjs">
+</block>
