@@ -12,6 +12,7 @@ class VorderController extends AdminBasicController {
         $this->checkLogin();
         $this->order = D('Order');
         $this->orderv = D('Orderv');
+        $this->buykc = D('Buykc');
 
     }
 
@@ -38,10 +39,24 @@ class VorderController extends AdminBasicController {
      * 删除新闻
      */
     public function cancelorder(){
-
         $data['id'] = $_POST['id'];
         $data['status'] = $_POST['status'];
-
+        if ($data['status'] == 1) {
+            $order = $this -> order -> where("id=".$data['id']) -> find();
+            $w['tid'] = $order['tid'];
+            $w['uid'] = $order['uid'];
+            $w['kid'] = $order['kid'];
+            $res1 = $this -> buykc -> where( $w ) -> find();
+            if ($res1) {
+                if ($res1['num'] <= $res1['ordernum']) {
+                    apiResponse("error","该用户已上满课");
+                }else{
+                    $this -> buykc ->where('id='.$res1['id'])->setInc('ordernum',1);
+                }
+            }else{
+                apiResponse("error","该客户尚未购买该课程！");
+            }
+        }
         $res = $this -> order -> save($data);
         if ( $res ) {
             apiResponse("success","修改成功！");

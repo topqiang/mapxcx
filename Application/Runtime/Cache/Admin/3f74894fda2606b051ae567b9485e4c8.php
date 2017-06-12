@@ -77,7 +77,7 @@
                             <td><?php echo (date('Y-m-d H:i:s',$vo['ctime'])); ?></td>
                             <td><?php echo ($vo['provance']); ?></td>
                             <td>
-                                <?php if($vo['status'] == 0): ?><a class="resetpass modify" data-id="<?php echo ($vo['id']); ?>" status="1" title="确认">
+                                <?php if($vo['status'] == 0): ?><a class="resetpass modify" data-id="<?php echo ($vo['id']); ?>" title="确认">
                                         <span class="icon glyphicon glyphicon-refresh"></span>
                                     </a><?php endif; ?>
                                 <?php if($vo['status'] != 4): ?><a title="取消" data-id="<?php echo ($vo['id']); ?>" status="4" class="modify">
@@ -99,30 +99,91 @@
         </form>
     </div>
 </div>
-
+<div id="sou" style="text-align:center;display:none;">
+    <div style="padding:20px;">
+        <form>
+        <div><input type="number" class="num text-input form-control" placeholder="上课次数"/></div>
+        <div>
+            <select class="tid form-control" name="tid" placeholder="请选择教练">
+                <option value="">请选择教练</option>
+                <?php if(is_array($teaclist)): $i = 0; $__LIST__ = $teaclist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$teac): $mod = ($i % 2 );++$i;?><option value="<?php echo ($teac['id']); ?>"><?php echo ($teac['name']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+            </select>
+        </div>
+        <div class="kcdiv">
+            
+        </div>
+        <div>
+            <button type="button" class="btn commit">确认</button>
+        </div>
+        </form>
+    </div>
+</div>
 <script type="text/javascript">
+    var id ;
     $(document).ready(function(){
-
         $(".modify").on('click',function () {
-           var id = $(this).data("id");
-           var status = $(this).attr("status");
-           if (!confirm("您确定要修改吗？")){
-            return;
-           }
-           $.ajax({
-                url:"<?php echo U('Vorder/cancelorder');?>",
-                data:{id:id,status:status},
-                dataType:"json",
-                type:"post",
-                success:function ( res ) {
-                    layer.msg(res.message);
-                    if (res.flag=="success") {
-                        location.reload();
+        id = $(this).data("id");
+        var index = layer.open({
+            type:1,
+            title: '请输入课程内容',
+            content: $('#sou'),
+            area:["300px","220px"]
+        });
+        });
+    });
+
+    $(".commit").on('click',function () {
+        var kid = $(".kid").val();
+        var tid = $(".tid").val();
+        var num = $(".num").val();
+        if (kid && tid && num) {
+            $.ajax({
+                "url":"<?php echo U('User/buykc');?>",
+                "type":"post",
+                "data":{"kid":kid,"tid":tid,"uid":id,"num":num},
+                "dataType":"json",
+                "success":function ( res ) {
+                    if (res.flag == "success") {
+                        layer.closeAll();
+                        layer.msg(res.message);
+                    }else{
+                        layer.msg(res.message);
                     }
                 }
             });
-        });
+        }else{
+            layer.msg("请填写完整信息！");
+        }
     });
+
+    $(".tid").on('change',function () {
+            var tid = $(this).val();
+            if (!tid) {
+                layer.msg("请先选择教练！");
+                $(".kcdiv").html("");
+            }
+            $.ajax({
+                url:"<?php echo U('User/getkc');?>",
+                data:{tid:tid},
+                dataType:"json",
+                type:"post",
+                success:function ( res ) {
+                    if ( res.flag == "success" ) {
+                        var jkc = res.data;
+                        console.log(jkc);
+                        var str = '<select class="kid form-control" name="kid" placeholder="请选择课程">';
+                        for(var index in jkc){
+                            var obj = jkc[index];
+                            str += '<option value="'+obj['kid']+'">'+obj['name']+'</option>';
+                        }
+                        str += '</select>';
+                        $(".kcdiv").html( str );
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            })
+        });
 </script>
 <script type="text/javascript" src="/api/Public/Common/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/api/Public/Common/js/common.js"></script>

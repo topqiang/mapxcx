@@ -14,7 +14,7 @@ class OrderController extends HomeBasicController {
         $this -> jkc = D('Jkc');
         $this -> kc = D('kc');
         $this -> order = D('Order');
-
+        $this -> buykc = D('Buykc');
     }
 
     public function addorder(){
@@ -29,6 +29,19 @@ class OrderController extends HomeBasicController {
             'weekday' => $_POST['weekday'],
             'infotime' => $_POST['infotime']
             );
+        $wh['id'] = $_POST['kid'];
+        $res = $this -> jkc -> where( $wh ) -> find();
+        $w['kid'] = $res['kid'];
+        $w['tid'] = $_POST['tid'];
+        $w['uid'] = session("userid");
+        $ishas = $this -> buykc -> where( $w ) -> find();
+        if ($ishas) {
+            if ($ishas['num'] == $ishas['ordernum']) {
+                apiResponse("error","您的课程已经上完！");
+            }
+        }else{
+            apiResponse("error","您尚未报名此课程！");
+        }
         $isplay = $this -> order -> where($data) -> find();
         if ($isplay) {
             apiResponse("error","该课程已被人预约！");

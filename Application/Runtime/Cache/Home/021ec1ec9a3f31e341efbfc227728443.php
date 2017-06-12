@@ -50,6 +50,8 @@
       var kname = "<?php echo ($kc['name']); ?>";
       var htime = "<?php echo ($kc['htime']); ?>";
       var weekday = "<?php echo ($kc['week']); ?>";
+      var infotime = "<?php echo ($kc['infotime']); ?>";
+
       var dataobj = {
         kid:kid,
         tid:tid,
@@ -57,13 +59,11 @@
         ktime:ktime,
         kname:kname,
         htime:htime,
-        weekday:weekday
+        weekday:weekday,
+        infotime:infotime
       };
       requestUrl("<?php echo U('Order/addorder');?>",dataobj,function (res) {
         layer.msg(res.message);
-        if (res.flag=="success") {
-
-        }
       })
 
     });

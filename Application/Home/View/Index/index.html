@@ -28,7 +28,7 @@
       <volist name="jkcv" id="jkc">
         <div class="weui-flex main">
           <div><div class="placeholder imgbox">
-            <img src="Uploads/{$jkc.headpic}" alt="">
+            <img src="{$jkc.headpic}" alt="">
           </div></div>
           <div class="weui-flex__item"><div class="placeholder">
             <p class="hg40">{$jkc.tname}->{$jkc.name}</p>
@@ -43,15 +43,15 @@
   <block name="footerjs">
   <script type="text/javascript">
 
-  $(".xq_slide_out").xq_slide({
-    type: "h", //轮播方式  h水平轮播；v垂直轮播；o透明切换
-    vatical: false, //图片描述性文本 true 显示 false不显示
-    choseBtn: false, //是否显示上下切换按钮
-    speed: 2000, //动画间隔的时间，以毫秒为单位。
-    mousestop: true, //当鼠标移上去是否停止循环,针对PC端
-    showbar: true, //是否显示轮播导航bar
-    openmb: true //是否开启移动端支持
-  });
+    $(".xq_slide_out").xq_slide({
+      type: "h", //轮播方式  h水平轮播；v垂直轮播；o透明切换
+      vatical: false, //图片描述性文本 true 显示 false不显示
+      choseBtn: false, //是否显示上下切换按钮
+      speed: 2000, //动画间隔的时间，以毫秒为单位。
+      mousestop: true, //当鼠标移上去是否停止循环,针对PC端
+      showbar: true, //是否显示轮播导航bar
+      openmb: true //是否开启移动端支持
+    });
 
   </script>
   </block>

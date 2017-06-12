@@ -42,7 +42,7 @@
     <div class="maindiv white">
       <?php if(is_array($jkcv)): $i = 0; $__LIST__ = $jkcv;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$jkc): $mod = ($i % 2 );++$i;?><div class="weui-flex main">
           <div><div class="placeholder imgbox">
-            <img src="Uploads/<?php echo ($jkc["headpic"]); ?>" alt="">
+            <img src="<?php echo ($jkc["headpic"]); ?>" alt="">
           </div></div>
           <div class="weui-flex__item"><div class="placeholder">
             <p class="hg40"><?php echo ($jkc["tname"]); ?>-><?php echo ($jkc["name"]); ?></p>
