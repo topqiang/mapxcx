@@ -56,7 +56,7 @@ class UserController extends HomeBasicController {
             }else{
                 $data = array(
                     'id' => session("userid"),
-                    'headpic' => $res1,
+                    'headpic' => 'Uploads/'.$res1,
                     'utime' => time()
                     );
                 $res = $this -> user -> save($data);
