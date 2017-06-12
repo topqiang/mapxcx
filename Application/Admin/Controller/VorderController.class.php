@@ -13,6 +13,7 @@ class VorderController extends AdminBasicController {
         $this->order = D('Order');
         $this->orderv = D('Orderv');
         $this->buykc = D('Buykc');
+        $this -> jkc = D('Jkc');
 
     }
 
