@@ -27,7 +27,6 @@ class HomeBasicController extends Controller{
             if ($userobj) {
                 session('userid',$userobj[0]['id']);
                 session('username',$userobj[0]['name']);
-
             }else{
                 $userobj = $this -> getUserInfo($access['openid'],$access['access_token']);
                 session('userid',$userobj['id']);
@@ -46,9 +45,9 @@ class HomeBasicController extends Controller{
                 Header("Location: $url");
             }
         }
-        $new = new \Think\Jssdk($this -> appid,$this -> scret);
-        $return = $new->getSignPackage();
-        $this->assign('parameter',$return);
+        // $new = new \Think\Jssdk($this -> appid,$this -> scret);
+        // $return = $new->getSignPackage();
+        // $this->assign('parameter',$return);
     }
 
     public function getUserInfo($openid,$access_token){
