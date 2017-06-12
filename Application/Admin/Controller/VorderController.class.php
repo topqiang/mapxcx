@@ -43,9 +43,12 @@ class VorderController extends AdminBasicController {
         $data['status'] = $_POST['status'];
         if ($data['status'] == 1) {
             $order = $this -> order -> where("id=".$data['id']) -> find();
+            $wh['id'] = $order['kid'];
+            $res = $this -> jkc -> where( $wh ) -> find();
+            $w['kid'] = $res['kid'];
             $w['tid'] = $order['tid'];
             $w['uid'] = $order['uid'];
-            $w['kid'] = $order['kid'];
+
             $res1 = $this -> buykc -> where( $w ) -> find();
             if ($res1) {
                 if ($res1['num'] <= $res1['ordernum']) {
