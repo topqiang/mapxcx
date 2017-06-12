@@ -7,14 +7,20 @@
               <img class="headlogo" src="__WEBPUBLIC__/Home/img/head2.png" alt="">
             </div></div>
             <div class="weui-flex__item"><div class="placeholder headbox2">
-              <p class="myp1"><span>{$user['name']}</span>
-              <if condition="$user['name'] eq 1">
+              <p class="myp1"><span>{$user['nick_name']}</span>
+              <if condition="$user['sex'] eq 1">
                 <img src="__WEBPUBLIC__/Home/img/nv.png" alt="">
                 <else/>
                 <img src="__WEBPUBLIC__/Home/img/nan.png" alt="">
               </if>
               </p>
-              <p class="myp2">{$user['tel']}</p>
+              <p class="myp2">
+                <if condition="empty($user['tel'])">
+                  未绑定手机号
+                  <else/>
+                  {$user['tel']}
+                </if>
+              </p>
             </div></div>
             <div><div class="placeholder headbox3"><img src="__WEBPUBLIC__/Home/img/back2.png" alt=""></div>
             </div>

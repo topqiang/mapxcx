@@ -377,6 +377,7 @@ color: white;
 	border:1px solid #FC7247;
 	margin-right: 10px;
 	position: relative;
+	box-sizing: border-box;
 }
 .headlogo{
 	position: absolute;
@@ -386,6 +387,8 @@ color: white;
 }
 .headbox{
 	width: 60px;
+	width: 100%;
+    border-radius: 50%;
 }
 .headbox2{
 	padding:10px 0px; 
