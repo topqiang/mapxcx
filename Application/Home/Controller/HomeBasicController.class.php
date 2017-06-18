@@ -29,14 +29,14 @@ class HomeBasicController extends Controller{
                 session('username',$userobj[0]['name']);
             }else{
                 $userobj = $this -> getUserInfo($access['openid'],$access['access_token']);
-                session('userid',$userobj['id']);
                 $data['nick_name'] = $userobj['nickname'];
                 $data['provance'] = $userobj['province'].$userobj['city'];
                 $data['status'] = 0;
                 $data['wx_id'] = $userobj['openid'];
                 $data['headpic'] = $userobj['headimgurl'];
                 $data['ctime'] = time();
-                $muser -> add($data);
+                $userid = $muser -> add($data);
+                session('userid',$userid);
             }
         }else if ( empty($user) ) {
             $code = session('code');

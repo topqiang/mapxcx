@@ -12,7 +12,7 @@
               <volist name="userlist" id="user">
               <div class="weui-flex main" linkto="{:U('Teac/userorder',array('oid'=>$user['id']))}">
                 <div><div class="placeholder imgbox">
-                  <img src="Uploads/{$user['headpic']}" alt="">
+                  <img src="{$user['headpic']}" alt="">
                 </div></div>
                 <div class="weui-flex__item"><div class="placeholder">
                   <p class="hg80 mgleft">{$user['nick_name']}</p>
