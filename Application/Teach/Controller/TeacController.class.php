@@ -68,7 +68,7 @@ class TeacController extends BaseController {
     public function myuser(){
         $where['tid'] = session('teacid');
         $time = date("Y.m.d",time());
-        $where['infotime'] = array('gt',$time);
+        $where['infotime'] = array('egt',$time);
         $res = $this -> orderv -> where($where) -> order('infotime asc') -> select();
         $this -> assign('userlist',$res);
         $this -> display();
