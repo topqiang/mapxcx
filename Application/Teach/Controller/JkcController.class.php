@@ -58,7 +58,7 @@ class JkcController extends BaseController {
 
             foreach ($value as $key => $val) {
                 $data['htime'] = $val;
-                $data['status'] = 0;
+                $data['status'] = 1;
                 $res = $this -> jkc -> add( $data );
                 if ( empty( $res ) ) {
                     $flag = true;

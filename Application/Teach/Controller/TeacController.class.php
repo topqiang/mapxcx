@@ -130,6 +130,7 @@ class TeacController extends BaseController {
     		$data['password'] = md5($password);
             $data['name'] = $account;
             $data['sex'] = 1;
+            $data['status'] = 1;
             $data['ctime'] = time();
             $data['utime'] = time();
     		$res = $this -> teac -> add($data);
