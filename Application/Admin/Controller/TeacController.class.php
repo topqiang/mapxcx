@@ -36,9 +36,9 @@ class TeacController extends AdminBasicController {
         if(empty($_REQUEST['id'])){
             $this->error('您未选择任何操作对象');
         }
-        $data['id'] = array('IN',I('request.id'));
-        $data['status'] = 9;
-        $upd_res = $this -> teac -> save($data);
+        $data['id'] = I('request.id');
+        //$data['status'] = 9;
+        $upd_res = $this -> teac -> delete($data['id']);
         if($upd_res){
             $this->success('删除操作成功');
         }else{
