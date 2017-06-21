@@ -10,13 +10,17 @@
       <div class="pd50">
             <div class="maindiv">
               <volist name="userlist" id="user">
-              <div class="weui-flex main" linkto="{:U('Teac/userorder',array('oid'=>$user['id']))}">
-                <div><div class="placeholder imgbox">
+              <div class="weui-flex main">
+                
+                <div linkto="{:U('Teac/userorder',array('oid'=>$user['id']))}"><div class="placeholder imgbox">
                   <img src="{$user['headpic']}" alt="">
                 </div></div>
-                <div class="weui-flex__item"><div class="placeholder">
+                <div class="weui-flex__item" linkto="{:U('Teac/userorder',array('oid'=>$user['id']))}"><div class="placeholder">
                   <p class="hg80 mgleft">{$user['nick_name']}</p>
                 </div></div>
+                <if condition="$user['status'] eq 0">
+                <div><div class="placeholder modify" oid="$user['id']" status="1"><p class="look mgt15">通过</p></div></div>
+                </if>
               </div>
               </volist>
             </div>
@@ -25,6 +29,24 @@
 </block>
 <block name="footerjs">
 <script>
-
+  $(".modify").on('click',function () {
+     var id = $(this).attr("oid");
+     var status = $(this).attr("status");
+     if (!confirm("您确定要修改吗？")){
+      return;
+     }
+     $.ajax({
+        url:"{:U('Teac/cancelorder')}",
+        data:{id:id,status:status},
+        dataType:"json",
+        type:"post",
+        success:function ( res ) {
+            layer.msg(res.message);
+            if (res.flag=="success") {
+                location.reload();
+            }
+        }
+    });
+  });
 </script>
 </block>

@@ -11,7 +11,9 @@ class TeacController extends BaseController {
     public function _initialize(){
         $this -> teac = D("Teac");
         $this -> jkcv = D('Jkcv');
-        $this -> orderv = D('Orderv');
+        $this->order = D('Order');
+        $this->orderv = D('Orderv');
+        $this->buykc = D('Buykc');
     }
 
     public function login(){
@@ -140,4 +142,33 @@ class TeacController extends BaseController {
     	}
     }
 
+    public function cancelorder(){
+        $data['id'] = $_POST['id'];
+        $data['status'] = $_POST['status'];
+        if ($data['status'] == 1) {
+            $order = $this -> order -> where("id=".$data['id']) -> find();
+            $wh['id'] = $order['kid'];
+            $res = $this -> jkc -> where( $wh ) -> find();
+            $w['kid'] = $res['kid'];
+            $w['tid'] = $order['tid'];
+            $w['uid'] = $order['uid'];
+
+            $res1 = $this -> buykc -> where( $w ) -> find();
+            if ($res1) {
+                if ($res1['num'] <= $res1['ordernum']) {
+                    apiResponse("error","该用户已上满课");
+                }else{
+                    $this -> buykc ->where('id='.$res1['id'])->setInc('ordernum',1);
+                }
+            }else{
+                apiResponse("error","该客户尚未购买该课程！");
+            }
+        }
+        $res = $this -> order -> save($data);
+        if ( $res ) {
+            apiResponse("success","修改成功！");
+        }else{
+            apiResponse("error","修改失败！");
+        }
+    }
 }
