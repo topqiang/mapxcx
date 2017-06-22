@@ -11,6 +11,8 @@ class TeacController extends BaseController {
     public function _initialize(){
         $this -> teac = D("Teac");
         $this -> jkcv = D('Jkcv');
+        $this -> jkc = D('Jkc');
+
         $this->order = D('Order');
         $this->orderv = D('Orderv');
         $this->buykc = D('Buykc');
