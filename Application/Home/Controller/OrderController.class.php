@@ -51,7 +51,7 @@ class OrderController extends HomeBasicController {
         $data['status'] = 0;
         $res1 = $this -> order -> add($data);
         if ($res1) {
-            apiResponse("success","预约成功，请按时参加！");
+            apiResponse("success","审核提交成功，请等待结果！");
         }else{
             apiResponse("error","预约失败！");
         }
