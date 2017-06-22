@@ -155,7 +155,6 @@ class TeacController extends BaseController {
             $w['kid'] = $res['kid'];
             $w['tid'] = $order['tid'];
             $w['uid'] = $order['uid'];
-
             $res1 = $this -> buykc -> where( $w ) -> find();
             if ($res1) {
                 if ($res1['num'] <= $res1['ordernum']) {
