@@ -34,6 +34,7 @@ class OrderController extends HomeBasicController {
         $w['kid'] = $res['kid'];
         $w['tid'] = $_POST['tid'];
         $w['uid'] = session("userid");
+        $w['status'] = array('neq',9);
         $ishas = $this -> buykc -> where( $w ) -> find();
         if ($ishas) {
             if ($ishas['num'] == $ishas['ordernum']) {
