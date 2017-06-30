@@ -107,6 +107,7 @@ class KcController extends AdminBasicController {
         if ($name) {
             $where['name'] = array("like","%$name%");
         }
+        $where['status'] = array('neq',9);
         if ($status) {
             $where['status'] = $status;
         }
