@@ -35,6 +35,8 @@ class IndexController extends HomeBasicController {
 
         $whe['infotime'] = array('gt',date('Y.m.d',$time));
         $jkc = $this -> jkcv -> where( $whe ) -> order('infotime asc') -> select();
+        echo $this -> jkcv -> getLastsql();
+        exit();
         $this -> assign('jkcv',$jkc);
         $this -> assign( 'inpic' , $inpic );
         $this->display('index');
