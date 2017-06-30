@@ -104,7 +104,6 @@ class KcController extends AdminBasicController {
     public function jkclist(){
         $name = $_POST['name'];
         $tname = $_POST['tname'];
-
         $status = $_POST['status'];
         if ($name) {
             $where['name'] = array("like","%$name%");
@@ -112,6 +111,8 @@ class KcController extends AdminBasicController {
         if ($tname) {
             $where['tname'] = array("like","%$tname%");
         }
+        $nowtime = date('Y.m.d',time());
+        $where['infotime'] = array('gt',$nowtime);
         $where['status'] = array('neq',9);
         if ($status) {
             $where['status'] = $status;
