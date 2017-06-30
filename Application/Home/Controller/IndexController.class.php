@@ -32,6 +32,8 @@ class IndexController extends HomeBasicController {
         }
         $whe['tid'] = array('in',$tid);
         $whe['kid'] = array('in',$kid);
+        $whe['status'] = array('neq',9);
+
 
         $whe['infotime'] = array('gt',date('Y.m.d',$time));
         $jkc = $this -> jkcv -> where( $whe ) -> order('infotime asc') -> select();
