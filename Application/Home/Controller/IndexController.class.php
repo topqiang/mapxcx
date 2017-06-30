@@ -23,7 +23,7 @@ class IndexController extends HomeBasicController {
         $time = time();
         $uid = session('userid');
         
-        $res $this -> buykc -> where( "uid=$uid" ) -> field('tid,kid') -> distinct(true) ->select();
+        $res = $this -> buykc -> where( "uid=$uid" ) -> field('tid,kid') -> distinct(true) ->select();
         dump($res);
         exit();
         $whe['infotime'] = array('gt',date('Y.m.d',$time));
