@@ -24,8 +24,15 @@ class IndexController extends HomeBasicController {
         $uid = session('userid');
         
         $res = $this -> buykc -> where( "uid=$uid" ) -> field('tid,kid') -> distinct(true) ->select();
-        dump($res);
-        exit();
+        $tid = array();
+        $kid = array();
+        foreach ($res as $key => $value) {
+            array_push($tid,$value['tid']);
+            array_push($kid,$value['kid']);
+        }
+        $whe['tid'] = array('in',$tid);
+        $whe['kid'] = array('in',$kid);
+
         $whe['infotime'] = array('gt',date('Y.m.d',$time));
         $jkc = $this -> jkcv -> where( $whe ) -> order('infotime asc') -> select();
         $this -> assign('jkcv',$jkc);
