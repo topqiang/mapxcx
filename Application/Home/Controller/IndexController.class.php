@@ -12,6 +12,8 @@ class IndexController extends HomeBasicController {
         parent::_initialize();
         $this -> inpic = D('Inpic');
         $this -> jkcv = D('Jkcv');
+        $this -> buykc = D('Buykc');
+
     }
 
     public function index(){
@@ -19,6 +21,11 @@ class IndexController extends HomeBasicController {
         $inpic = $this -> inpic -> where($where) -> select();
         $whe['status'] = 1;
         $time = time();
+        $uid = session('userid');
+        
+        $res $this -> buykc -> where( "uid=$uid" ) -> field('tid,kid') -> distinct(true) ->select();
+        dump($res);
+        exit();
         $whe['infotime'] = array('gt',date('Y.m.d',$time));
         $jkc = $this -> jkcv -> where( $whe ) -> order('infotime asc') -> select();
         $this -> assign('jkcv',$jkc);
