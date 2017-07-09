@@ -89,18 +89,65 @@
       var reader = new FileReader();
       reader.onload = function(e){
           var src = e.target.result;
-          var dataargs = {"pic": src, "pic_name": picname};
-          requestUrl("{:U('Teac/setpro')}", dataargs, function (res) {
-              layer.closeAll();
-              layer.msg(res.message);
-              if (res.flag == "success") {
-                $(".minhead").attr("src",res.data);
-              }
-          }, "POST", true);
-
+          render(src,picname);
       }
       reader.readAsDataURL(files[0]);
   }
   $("input[type='file']").on('change',ajax);
+
+  function putdata(dataargs) {
+    requestUrl("{:U('Teac/setpro')}", dataargs, function (res) {
+        layer.closeAll();
+        layer.msg(res.message);
+        if (res.flag == "success") {
+          $(".minhead").attr("src",res.data);
+        }
+    }, "POST", true);
+  }
+  var MAX_HEIGHT = 1000;
+// 渲染
+function render(src,picname) {
+    // 创建一个 Image 对象
+    var image = new Image();
+    // 绑定 load 事件处理器，加载完成后执行
+    image.onload = function() {
+        // 获取 canvas DOM 对象
+        var canvas = document.createElement("canvas");
+        // 如果高度超标
+        if (image.height > MAX_HEIGHT && image.height >= image.width) {
+            // 宽度等比例缩放 *=
+            image.width *= MAX_HEIGHT / image.height;
+            image.height = MAX_HEIGHT;
+        }
+        if (image.width > MAX_HEIGHT && image.width > image.height) {
+            // 宽度等比例缩放 *=
+            image.height *= MAX_HEIGHT / image.width;
+            image.width = MAX_HEIGHT;
+        }
+        // 获取 canvas的 2d 环境对象,
+        // 可以理解Context是管理员，canvas是房子
+        var ctx = canvas.getContext("2d");
+        // canvas清屏
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // 重置canvas宽高
+        canvas.width = image.width;
+        canvas.height = image.height;
+        // 将图像绘制到canvas上
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        // !!! 注意，image 没有加入到 dom之中
+//        document.getElementById('img').src = canvas.toDataURL("image/png");
+        var blob = canvas.toDataURL("image/jpeg");
+        var dataargs = {"pic": blob, "pic_name": picname};
+        putdata(dataargs);
+        //imgarr.push({"pic":blob,"pic_name":picname});
+        // var fd = new FormData();
+        // fd.append("image", blob, "image.png");
+        // imgCompressUpload(canvas.toDataURL("image/png"));
+       
+    };
+    // 设置src属性，浏览器会自动加载。
+    // 记住必须先绑定事件，才能设置src属性，否则会出同步问题。
+    image.src = src;
+};
   </script>
 </block>
