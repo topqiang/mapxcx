@@ -21,7 +21,7 @@
                 <if condition="$user['status'] eq 0">
                 <div><div class="placeholder modify" oid="{$user['id']}" status="1"><p class="look mgt15" style="padding:0px 10px;">通过</p></div></div>
                 <else/>
-                已取消
+                <div class="placeholder" oid="{$user['id']}" status="1"><p class="look mgt15" style="padding:0px 10px;">已取消</p></div>
                 </if>
               </div>
               </volist>
