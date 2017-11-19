@@ -9,7 +9,7 @@ class HomeBasicController extends Controller{
         $user = session("userid");
         $this -> appid = "wxd94e1eeb42f05643";
         $this -> scret = "1d197dc0b61035ce7015b2a3e27ee144";
-        $this -> baseurl = "http://jians.91fluid.com";
+        $this -> baseurl = "http://www.suzwgt.com";
         $redirect_uri = $this -> baseurl.$_SERVER['REQUEST_URI'];
         $isweixin = preg_match('/MicroMessenger/',$_SERVER['HTTP_USER_AGENT']);
         $state = $_REQUEST['state'];
