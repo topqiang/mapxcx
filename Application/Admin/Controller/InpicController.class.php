@@ -67,4 +67,12 @@ class InpicController extends AdminBasicController {
         }
     }
 
+    /*语音识别对接科大讯飞*/
+    public function getTextVal(){
+        $url = "https://api.xfyun.cn/v1/aiui/v1/text_semantic";
+        $data = array('text' => base64_encode('你好'));
+        $res = $this->httpsRequest($url,$data);
+        dump($res);
+    }
+
 }

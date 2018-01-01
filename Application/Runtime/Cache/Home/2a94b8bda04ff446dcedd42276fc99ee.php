@@ -46,7 +46,7 @@
           </div></div>
           <div class="weui-flex__item"><div class="placeholder">
             <p class="hg40"><?php echo ($jkc["tname"]); ?>-><?php echo ($jkc["name"]); ?></p>
-            <p class="hg40 p2">共<?php echo ($jkc["ktime"]); ?>课时</p>
+            <p class="hg40 p2"><?php echo ($jkc["datestr"]); echo ($jkc["htime"]); ?></p>
           </div></div>
           <div><div class="placeholder lookdiv" linkto="<?php echo U('Jkc/jkcinfo',array('id'=>$jkc['id']));?>"><p class="look mgt25">查看</p></div></div>
         </div><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -57,15 +57,15 @@
   
   <script type="text/javascript">
 
-  $(".xq_slide_out").xq_slide({
-    type: "h", //轮播方式  h水平轮播；v垂直轮播；o透明切换
-    vatical: false, //图片描述性文本 true 显示 false不显示
-    choseBtn: false, //是否显示上下切换按钮
-    speed: 2000, //动画间隔的时间，以毫秒为单位。
-    mousestop: true, //当鼠标移上去是否停止循环,针对PC端
-    showbar: true, //是否显示轮播导航bar
-    openmb: true //是否开启移动端支持
-  });
+    $(".xq_slide_out").xq_slide({
+      type: "h", //轮播方式  h水平轮播；v垂直轮播；o透明切换
+      vatical: false, //图片描述性文本 true 显示 false不显示
+      choseBtn: false, //是否显示上下切换按钮
+      speed: 2000, //动画间隔的时间，以毫秒为单位。
+      mousestop: true, //当鼠标移上去是否停止循环,针对PC端
+      showbar: true, //是否显示轮播导航bar
+      openmb: true //是否开启移动端支持
+    });
 
   </script>
   
