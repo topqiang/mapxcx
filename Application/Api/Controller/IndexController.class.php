@@ -23,7 +23,7 @@ class IndexController extends Controller {
 		if (!empty($_POST['filter'])) {
 			$where['filter'] = $_POST['filter'];
 		}
-		
+
 		$res1 = $this -> curl( $where , $this -> searchurl , "get" );
 		apiResponse( "success" , "查询成功！" , $res1 );
 	}
@@ -31,7 +31,7 @@ class IndexController extends Controller {
 	public function curl($data,$url,$type="post"){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "get");
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt($ch, CURLOPT_USERAGENT,  'Mozilla/5.0 (compatible;MSIE 5.01;Windows NT5.0)');
