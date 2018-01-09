@@ -34,9 +34,9 @@ class IndexController extends Controller {
 	public function index(){
 		$where['uid'] = $_POST['uid'];
 		$res = $this -> history->field('keyword')->where($where)->distinct(true)->order('ctime desc')->limit(10) -> select();
-		$sql = "SELECT keyword,COUNT(ALL id) AS count FROM __PREFIX__history GROUP BY (keyword) ORDER BY count desc;"
-		$res1 = new \Think\Model() -> query( $sql );
-		apiResponse("success","查询成功！",$res1);
+		// $sql = "SELECT keyword,COUNT(ALL id) AS count FROM __PREFIX__history GROUP BY (keyword) ORDER BY count desc;"
+		// $res1 = new \Think\Model() -> query( $sql );
+		apiResponse("success","查询成功！",$res);
 	}
 
 	public function curl($data,$url,$type="post"){
