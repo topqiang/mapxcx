@@ -33,7 +33,7 @@ class IndexController extends Controller {
 
 	public function index(){
 		$where['uid'] = $_POST['uid'];
-		$res = $this -> history->sum('keyword') ->limit(10) -> group('keyword') -> select();
+		$res = $this -> history->sum('keyword')->field('keyword')  -> group('keyword')->limit(10) -> select();
 		apiResponse("success","查询成功！",$res);
 	}
 
