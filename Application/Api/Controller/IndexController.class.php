@@ -23,9 +23,6 @@ class IndexController extends Controller {
 			$where['filter'] = $_POST['filter'];
 		}
 		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?keyword=".$where['keyword']."&boundary=nearby(".$data['latitude'].",".$data['longitude'].",1000)&key=".$where['key'];
-		//http://apis.map.qq.com/ws/place/v1/search?keyword=%E9%85%92%E5%BA%97&boundary=nearby(39.908491,116.374328,1000)&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77
-		//$res1 = file_get_contents($this -> searchurl);
-
 		$res1 = json_decode($this -> curl( "" , $this -> searchurl , "get" ),true);
 		if ($res1['status']==110) {
 			$res1['url']= $this -> searchurl;
@@ -34,29 +31,29 @@ class IndexController extends Controller {
 	}
 
 	public function curl($data,$url,$type="post"){
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, $url);
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "get");
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        // curl_setopt($ch, CURLOPT_USERAGENT,  'Mozilla/5.0 (compatible;MSIE 5.01;Windows NT5.0)');
-        // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        // curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-        // curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // $tmpInfo=curl_exec($ch);
-        // if (curl_errno($ch)) {
-        //     return curl_errno($ch);
-        // }
-        // curl_close($ch);
         $ch = curl_init();
-		$timeout = 5;
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-		$file_contents = curl_exec($ch);
-		curl_close($ch);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "get");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_USERAGENT,  'Mozilla/5.0 (compatible;MSIE 5.01;Windows NT5.0)');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $file_contents=curl_exec($ch);
+        if (curl_errno($ch)) {
+            return curl_errno($ch);
+        }
+        curl_close($ch);
+  //       $ch = curl_init();
+		// $timeout = 5;
+		// curl_setopt($ch, CURLOPT_URL, $url);
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		// $file_contents = curl_exec($ch);
+		// curl_close($ch);
         return $file_contents;
     }
 
