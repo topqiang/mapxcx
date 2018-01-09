@@ -27,7 +27,7 @@ class IndexController extends Controller {
 		if ($res1['status']==110) {
 			$res1['url']= $this -> searchurl;
 		}
-		apiResponse( "success" , "查询成功！" , $res1 );
+		print json_encode($res1);
 	}
 
 	public function curl($data,$url,$type="post"){
