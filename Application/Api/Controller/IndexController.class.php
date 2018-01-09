@@ -34,7 +34,8 @@ class IndexController extends Controller {
 	public function index(){
 		$where['uid'] = $_POST['uid'];
 		$res = $this -> history->field('keyword')->where($where)->distinct(true)->order('ctime desc')->limit(10) -> select();
-		apiResponse("success","查询成功！",$res);
+		$res1 = $this -> history->field('keyword')->count('keyword')->group('keyword') -> select();
+		apiResponse("success","查询成功！",$res1);
 	}
 
 	public function curl($data,$url,$type="post"){
