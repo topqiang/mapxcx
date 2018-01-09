@@ -4,7 +4,7 @@ use Think\Controller;
 class IndexController extends Controller {
 	public function _initialize(){
 		$this -> key = "OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";
-		$this -> searchurl = "http://apis.map.qq.com/ws/place/v1/search";
+		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?";
 	}
 	public function search(){
 		$data['uid'] = $_POST['uid'];
@@ -18,13 +18,13 @@ class IndexController extends Controller {
 		$where['keyword'] = urlencode($data['keyword']);
 		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",1000)";
 		$where['key'] = $this -> key;
-		$where['output'] = "json";
 
 		if (!empty($_POST['filter'])) {
 			$where['filter'] = $_POST['filter'];
 		}
-
-		$res1 = $this -> curl( json_encode($where) , $this -> searchurl , "get" );
+		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?keyword=".$where['keyword']."&boundary=nearby(".$data['latitude'].",".$data['longitude'].",1000)&key=".$where['key'];
+		//http://apis.map.qq.com/ws/place/v1/search?keyword=%E9%85%92%E5%BA%97&boundary=nearby(39.908491,116.374328,1000)&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77
+		$res1 = $this -> curl( "" , $this -> searchurl , "get" );
 		apiResponse( "success" , "查询成功！" , $res1 );
 	}
 
