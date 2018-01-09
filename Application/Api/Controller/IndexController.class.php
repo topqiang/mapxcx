@@ -24,7 +24,7 @@ class IndexController extends Controller {
 			$where['filter'] = $_POST['filter'];
 		}
 
-		$res1 = $this -> curl( $where , $this -> searchurl , "get" );
+		$res1 = $this -> curl( json_encode($where) , $this -> searchurl , "get" );
 		apiResponse( "success" , "查询成功！" , $res1 );
 	}
 
