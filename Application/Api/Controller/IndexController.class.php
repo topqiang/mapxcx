@@ -14,7 +14,7 @@ class IndexController extends Controller {
 		$data['ctime'] = time();
 		$data['status'] = 0;
 		$history = M('history');
-		$res = $this -> add( $data );
+		$res = $history -> add( $data );
 		$where['keyword'] = urlencode($data['keyword']);
 		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",1000)";
 		$where['key'] = $this -> key;
