@@ -35,7 +35,7 @@ class IndexController extends Controller {
 		$where['uid'] = $_POST['uid'];
 		$res = $this -> history->field('keyword')->where($where)->distinct(true)->order('ctime desc')->limit(10) -> select();
 		$sql = "SELECT keyword,COUNT(ALL id) AS count FROM __PREFIX__history GROUP BY (keyword) ORDER BY count desc;"
-		$res1 = $this -> history -> query( $sql );
+		$res1 = new \Think\Model() -> query( $sql );
 		apiResponse("success","查询成功！",$res1);
 	}
 
