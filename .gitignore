@@ -1,3 +1,5 @@
 Uploads/*
 Application/Common/Conf/config.php
+*.DS_Store
+.gitignore
 Application/Runtime/*
