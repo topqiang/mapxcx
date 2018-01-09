@@ -5,6 +5,7 @@ class IndexController extends Controller {
 	public function _initialize(){
 		$this -> key = "AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";
 		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?";
+		$this -> history = M('history');
 	}
 	public function search(){
 		$data['uid'] = $_POST['uid'];
@@ -13,8 +14,8 @@ class IndexController extends Controller {
 		$data['keyword'] = $_POST['keyword'];
 		$data['ctime'] = time();
 		$data['status'] = 0;
-		$history = M('history');
-		$res = $history -> add( $data );
+		
+		$res = $this -> history -> add( $data );
 		$where['keyword'] = urlencode($data['keyword']);
 		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",1000)";
 		$where['key'] = $this -> key;
@@ -28,6 +29,12 @@ class IndexController extends Controller {
 			$res1['url']= $this -> searchurl;
 		}
 		print json_encode($res1);
+	}
+
+	public function index(){
+		$where['uid'] = $_POST['uid'];
+		$res = $this -> history->sum('keyword') ->limit(10) -> group('keyword') -> select();
+		apiResponse("success","查询成功！",$res);
 	}
 
 	public function curl($data,$url,$type="post"){
