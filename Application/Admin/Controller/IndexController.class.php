@@ -161,4 +161,6 @@ class IndexController extends AdminBasicController {
         //创建年份下拉菜单
         $this->assign('year_sel',D('Statistical','Service')->createYearSelect($year));
     }
+
+
 }

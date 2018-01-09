@@ -211,9 +211,6 @@ class AdminBasicController extends Controller {
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-        $xparam = base64_encode(array('scene' => 'main','userid'=>'user_0001' ));
-        $headers = array('Content-Type' => 'application/x-www-form-urlencoded', 'charset'=>'utf-8','X-Param'=>$xparam);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         if (!empty($data)){
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
