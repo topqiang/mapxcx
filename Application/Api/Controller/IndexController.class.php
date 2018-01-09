@@ -3,7 +3,7 @@ namespace Api\Controller;
 use Think\Controller;
 class IndexController extends Controller {
 	public function _initialize(){
-		$this -> key = "OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";
+		$this -> key = "AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";
 		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?";
 	}
 	public function search(){
@@ -26,7 +26,10 @@ class IndexController extends Controller {
 		//http://apis.map.qq.com/ws/place/v1/search?keyword=%E9%85%92%E5%BA%97&boundary=nearby(39.908491,116.374328,1000)&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77
 		//$res1 = file_get_contents($this -> searchurl);
 
-		$res1 = $this -> curl( "" , $this -> searchurl , "get" );
+		$res1 = json_decode($this -> curl( "" , $this -> searchurl , "get" ));
+		if ($res1['status']==110) {
+			$res1['url']= $this -> searchurl;
+		}
 		apiResponse( "success" , "查询成功！" , $res1 );
 	}
 
