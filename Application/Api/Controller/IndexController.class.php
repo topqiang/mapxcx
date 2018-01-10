@@ -37,7 +37,12 @@ class IndexController extends Controller {
 		$sql = "SELECT `keyword`,COUNT(`keyword`) AS num FROM `map_history` WHERE 1 GROUP BY (`keyword`) ORDER BY (`num`) DESC LIMIT 10";
 		$Model = new \Think\Model();
 		$res1 = $Model-> query( $sql );
-		apiResponse("success","查询成功！",$res1);
+		if (!empty($res) && !empty($res1)) {
+			$data = array( $res,$res1 );
+			apiResponse("success","查询成功！",$data);
+		}else{
+			apiResponse("error","数据查找失败！");
+		}
 	}
 
 	public function curl($data,$url,$type="post"){
