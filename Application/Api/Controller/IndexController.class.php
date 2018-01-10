@@ -7,6 +7,7 @@ class IndexController extends Controller {
 		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?";
 		$this -> history = M('history');
 	}
+	//检索关键词
 	public function search(){
 		$data['uid'] = $_POST['uid'];
 		$data['latitude'] = $_POST['latitude'];
@@ -31,7 +32,7 @@ class IndexController extends Controller {
 		}
 		print json_encode($res1);
 	}
-
+	//去除中英文标点符号
 	function filter_mark($text){ 
 		if(trim($text)=='')return ''; 
 		$text=preg_replace("/[[:punct:]\s]/",' ',$text); 
@@ -40,7 +41,7 @@ class IndexController extends Controller {
 		$text=urldecode($text); 
 		return trim($text); 
 	} 
-
+	//获取关键热门词和历史搜索记录
 	public function index(){
 		$where['uid'] = $_POST['uid'];
 		$res = $this -> history->field('keyword')->where($where)->distinct(true)->order('ctime desc')->limit(10) -> select();
@@ -136,7 +137,7 @@ class IndexController extends Controller {
     	//$res['p'] = $p;
         return $res;
     }
-
+    //编解码加语音识别技术
     public function wxupload(){
         $upload_res=$_FILES['viceo'];
         $tempfile = file_get_contents($upload_res['tmp_name']);
