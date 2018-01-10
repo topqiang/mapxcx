@@ -32,6 +32,30 @@ class IndexController extends Controller {
 		}
 		print json_encode($res1);
 	}
+	//添加新的标注点
+	public function addMarker(){
+		$data['uid'] = $_POST['uid'];
+		$data['lat'] = $_POST['lat'];
+		$data['lnt'] = $_POST['lnt'];
+		$data['address'] = $_POST['address'];
+		$data['photo'] = $_POST['photo'];
+		$data['remark'] = $_POST['remark'];
+		$data['keyword'] = $this -> filter_mark($_POST['keyword']);
+		$data['ctime'] = time();
+		$data['status'] = 0;
+		$data['type'] = "";
+		$markets = M('markets');
+
+		$res = $markets -> add( $data );
+
+		if (!empty($res)) {
+			apiResponse("success","等待审核！",$data);
+		}else{
+			apiResponse("error","上传失败！");
+		}
+	}
+
+
 	//去除中英文标点符号
 	function filter_mark($text){ 
 		if(trim($text)=='')return ''; 
