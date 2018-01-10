@@ -15,7 +15,6 @@ class IndexController extends Controller {
 		$data['ctime'] = time();
 		$data['status'] = 0;
 		
-		$res = $this -> history -> add( $data );
 		$where['keyword'] = urlencode($data['keyword']);
 		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",1000)";
 		$where['key'] = $this -> key;
@@ -27,6 +26,8 @@ class IndexController extends Controller {
 		$res1 = json_decode($this -> curl( "" , $this -> searchurl , "get" ),true);
 		if ($res1['status']==110) {
 			$res1['url']= $this -> searchurl;
+		}elseif ($res1['status']==0 && $res1['count']>0) {
+			$res = $this -> history -> add( $data );
 		}
 		print json_encode($res1);
 	}
