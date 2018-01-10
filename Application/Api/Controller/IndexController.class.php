@@ -166,4 +166,22 @@ class IndexController extends Controller {
         echo $res;
         exit();
     }
+
+    public function picupload(){
+        // $upload_res=$this->upload();
+        $upload_res=$_FILES['pic'];
+        $tempfile = file_get_contents($upload_res['tmp_name']);
+        $path = 'Uploads/'.uniqid().".".array_pop(explode(".", $upload_res['name']));
+        $res = file_put_contents($path, $tempfile);
+        if( !empty($res)){
+            $this -> apiResponse("success","上传成功！","/$path");
+         }else{
+            $this -> apiResponse("error","上传失败！");
+         }
+    }
+
+    function apiResponse($flag = 'error', $message = '',$data = array()){
+        $result = array('flag'=>$flag,'message'=>$message,'data'=>$data);
+        print json_encode($result);exit;
+    }
 }
