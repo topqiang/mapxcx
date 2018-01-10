@@ -133,16 +133,16 @@ class IndexController extends Controller {
         $tempfile = file_get_contents($upload_res['tmp_name']);
         $wavname = substr($upload_res['name'],0,strripos($upload_res['name'],".")).".wav";
         $arr = explode(",", $tempfile);
-        $path = 'Application/Admin/Controller/1/'.$upload_res['name'];
+        $path = 'Aduio/'.$upload_res['name'];
         if ($arr && !empty(strstr($tempfile,'base64'))){
         	file_put_contents($path, base64_decode($arr[1]));
         	$res = $this->getVoice($arr[1]);
         }else{
-            $path = 'Application/Admin/Controller/2/'.$upload_res['name'];
-            $newpath = 'Application/Admin/Controller/2/'.$wavname;
+            $path = 'Aduio/'.$upload_res['name'];
+            $newpath = 'Aduio/'.$wavname;
         	file_put_contents($path, $tempfile);
             chmod($path, 0777);
-            $exec1 = "avconv -i /home/wwwroot/www.suzwgt.com/$path -vn -f wav /home/wwwroot/www.suzwgt.com/$newpath";
+            $exec1 = "avconv -i /home/wwwroot/mapxcx.suzwgt.com/$path -vn -f wav /home/wwwroot/mapxcx.suzwgt.com/$newpath";
             exec($exec1,$info,$status);
             chmod($newpath, 0777);
             //$d = base64_encode(file_get_contents("./".$newpath));
