@@ -11,9 +11,6 @@ class UserController extends AdminBasicController {
     public function _initialize(){
         $this -> checkLogin();
         $this -> user = D('User');
-        $this -> teac = D('Teac');
-        $this -> jkcv = D('Jkcv');
-        $this -> buykc = D('Buykc');
 
     }
 
@@ -63,17 +60,12 @@ class UserController extends AdminBasicController {
      */
     public function userlist(){
         $w['status'] = array('neq',9);
-
-        $teaclist = $this -> teac -> where( $w ) -> select();
         
         if($_REQUEST['nick_name']){
-            $w['nick_name'] = array('LIKE','%'.$_REQUEST['nick_name'].'%');
+            $w['uname'] = array('LIKE','%'.$_REQUEST['nick_name'].'%');
         }
-        if($_REQUEST['tel']){
-            $w['tel'] = $_REQUEST['tel'];
-        }
-        $list = $this -> user -> where($w) -> order('ctime desc') -> select();
-        $this->assign("teaclist",$teaclist);
+
+        $list = $this -> user -> where($w) -> order('addtime desc') -> select();
         $this->assign("list",$list);
         $this->display();
     }
