@@ -19,7 +19,7 @@ class LoginController extends Controller {
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$headers = array(
-        	'content-type': 'application/json'
+        	'content-type:'.'application/json'
         	);
 		curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
