@@ -33,13 +33,9 @@
                         </th>
                         <th>姓名
                         </th>
-                        <th>手机号</th>
-                        <th>年龄</th>
+                        <th>头像</th>
                         <th>性别</th>
                         <th>加入时间</th>
-                        <th>省市</th>
-
-                        <th width="10%">操作</th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
@@ -49,10 +45,10 @@
                     <volist name="list" id="vo">
                         <tr>
                             <td>{$vo['id']}</td>
-                            <td>{$vo['nick_name']}</td>
-                            <td>{$vo['tel']}</td>
+                            <td>{$vo['uname']}</td>
                             <td>
-                                {$vo['age']}
+                                <img src="{$vo['photo']}" style="width:50px;"/>
+                                
                             </td>
                             <td>
                             <if condition="$vo['sex'] eq 1">
@@ -61,20 +57,7 @@
                                 女
                             </if>
                             </td>
-                            <td>{$vo['ctime']|date='Y-m-d H:i:s',###}</td>
-                            <td>{$vo['provance']}</td>
-                            <td>
-                                <if condition="$vo['status'] eq 0">
-                                    <a class="resetpass modify" data-id="{$vo['id']}" title="确认">
-                                        <span class="icon glyphicon glyphicon-refresh"></span>
-                                    </a>
-                                </if>
-                                <if condition="$vo['status'] neq 4">
-                                    <a title="取消" data-id="{$vo['id']}" status="4" class="modify">
-                                        <span class="icon glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </if>
-                            </td>
+                            <td>{$vo['addtime']|date='Y-m-d H:i:s',###}</td>
                         </tr>
                     </volist>
                 </tbody>
