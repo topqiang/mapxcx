@@ -12,18 +12,22 @@ class IndexController extends Controller {
 		$data['uid'] = $_POST['uid'];
 		$data['latitude'] = $_POST['latitude'];
 		$data['longitude'] = $_POST['longitude'];
+        $distinct = $_POST['distinct'];
+        if (empty($distinct)) {
+            $distinct = 1000;
+        }
 		$data['keyword'] = $this -> filter_mark($_POST['keyword']);
 		$data['ctime'] = time();
 		$data['status'] = 0;
 		
 		$where['keyword'] = urlencode($data['keyword']);
-		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",1000)";
+		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",$distinct)";
 		$where['key'] = $this -> key;
 
 		if (!empty($_POST['filter'])) {
 			$where['filter'] = $_POST['filter'];
 		}
-		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?keyword=".$where['keyword']."&boundary=nearby(".$data['latitude'].",".$data['longitude'].",1000)&key=".$where['key'];
+		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?keyword=".$where['keyword']."&boundary=nearby(".$data['latitude'].",".$data['longitude'].",$distinct)&key=".$where['key'];
 		$res1 = json_decode($this -> curl( "" , $this -> searchurl , "get" ),true);
 		if ($res1['status']==110) {
 			$res1['url']= $this -> searchurl;
