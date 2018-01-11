@@ -4,20 +4,17 @@
 <div id="main-content" class="content">
 
     <div class="page-header page-header1 clearfix">
-        <h3>课程管理</h3>
+        <h3>地标管理</h3>
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="{:U('Kc/kclist')}">课程列表</a>
-            </li>
-            <li>
-                <a href="{:U('Kc/addkc')}">添加课程</a>
+                <a href="{:U('Kc/kclist')}">地标列表</a>
             </li>
         </ul>
     </div>
     <div class="search-content">
         <form action="{:U('Kc/ArticleList')}" method="post" class="search-form form-inline" role="form">
             <div class="form-group">
-                <label class="sr-only" for="title">课程标题</label>
+                <label class="sr-only" for="title">地标标题</label>
                 <input class="earch-input form-control" id="title" type="text" name="name" value="{$request['name']}" placeholder="课程标题"/>　
             </div>
             <button type="submit" class="btn derive">查询</button>
@@ -31,11 +28,14 @@
                         <th width="8%">
                             编号
                         </th>
-                        <th width="15%">课程名称
+                        <th width="15%">关键词
                         </th>
-                        <th>课时</th>
+                        <th>图片</th>
+                        <th>备注</th>
+                        <th>地址</th>
+
+
                         <th>创建时间</th>
-                        <th>修改时间</th>
                         <th width="10%">操作</th>
                     </tr>
                 </thead>
@@ -46,10 +46,14 @@
                     <volist name="list" id="vo">
                         <tr>
                             <td>{$vo['id']}</td>
-                            <td>{$vo['name']}</td>
-                            <td>{$vo['ktime']}</td>
+                            <td>{$vo['keyword']}</td>
+                            <td><div><img src="{$vo['photo']}" style="width:100px;"/></div></td>
+                            <td>{$vo['remark']}</td>
+                            <td>{$vo['address']}</td>
+
+
                             <td>{$vo['ctime']|date='Y-m-d H:i:s',###}</td>
-                            <td>{$vo['utime']|date='Y-m-d H:i:s',###}</td>
+
                             <td>
                                 <a href="{:U('Kc/editkc',array('id'=>$vo['id']))}" title="详情" class="modify">
                                     <span class="icon glyphicon glyphicon-edit"></span>
