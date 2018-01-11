@@ -32,6 +32,18 @@ class IndexController extends Controller {
 		}
 		print json_encode($res1);
 	}
+    //删除历史记录
+    public function removehis(){
+        $data['uid'] = $_POST['uid'];
+        $data['keyword'] = $this -> filter_mark($_POST['keyword']);
+        $res = $this -> history ->where($data)->delete();
+        if (!empty($res)) {
+            apiResponse("success","删除成功！");
+        }else{
+            apiResponse("error","删除失败！");
+        }
+    }   
+
 	//添加新的标注点
 	public function addMarker(){
 		$data['uid'] = $_POST['uid'];
