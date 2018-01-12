@@ -10,29 +10,34 @@ class IndexController extends Controller {
 	//检索关键词
 	public function search(){
 		$data['uid'] = $_POST['uid'];
-		$data['latitude'] = $_POST['latitude'];
-		$data['longitude'] = $_POST['longitude'];
+        $data['keyword'] = $this -> filter_mark($_POST['keyword']);
+        $has = $this -> history -> where( $data ) -> limit(1) -> select();
+		$data['lat'] = $_POST['latitude'];
+		$data['lnt'] = $_POST['longitude'];
         $distinct = $_POST['distinct'];
         if (empty($distinct)) {
             $distinct = 1000;
         }
-		$data['keyword'] = $this -> filter_mark($_POST['keyword']);
 		$data['ctime'] = time();
 		$data['status'] = 0;
 		
 		$where['keyword'] = urlencode($data['keyword']);
-		$where['boundary'] = "nearby(".$data['latitude'].",".$data['longitude'].",$distinct)";
+		$where['boundary'] = "nearby(".$data['lat'].",".$data['lnt'].",$distinct)";
 		$where['key'] = $this -> key;
 
 		if (!empty($_POST['filter'])) {
 			$where['filter'] = $_POST['filter'];
 		}
-		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?keyword=".$where['keyword']."&boundary=nearby(".$data['latitude'].",".$data['longitude'].",$distinct)&key=".$where['key'];
+		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?keyword=".$where['keyword']."&boundary=nearby(".$data['lat'].",".$data['lnt'].",$distinct)&key=".$where['key'];
 		$res1 = json_decode($this -> curl( "" , $this -> searchurl , "get" ),true);
 		if ($res1['status']==110) {
 			$res1['url']= $this -> searchurl;
 		}elseif ($res1['status']==0 && $res1['count']>0) {
-			$res = $this -> history -> add( $data );
+            if (!empty($has)) {
+                $res = $this -> history -> where('id='.$has[0]['id'])->setInc('num');
+            }else{
+                $res = $this -> history -> add( $data );
+            }
 		}
 		print json_encode($res1);
 	}
@@ -85,7 +90,7 @@ class IndexController extends Controller {
 	public function index(){
 		$where['uid'] = $_POST['uid'];
 		$res = $this -> history->field('keyword')->where($where)->distinct(true)->order('ctime desc')->limit(10) -> select();
-		$sql = "SELECT `keyword`,COUNT(`keyword`) AS num FROM `map_history` WHERE 1 GROUP BY (`keyword`) ORDER BY (`num`) DESC LIMIT 10";
+		$sql = "SELECT `keyword`,SUM(`num`) AS num FROM `map_history` WHERE 1 GROUP BY (`keyword`) ORDER BY (`num`) DESC LIMIT 10";
 		$Model = new \Think\Model();
 		$res1 = $Model-> query( $sql );
 		if (!empty($res) && !empty($res1)) {
