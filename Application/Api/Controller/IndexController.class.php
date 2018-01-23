@@ -182,7 +182,7 @@ class IndexController extends Controller {
             $newpath = 'Aduio/'.$wavname;
         	file_put_contents($path, $tempfile);
             chmod($path, 0777);
-            $exec1 = "avconv -i /home/wwwroot/mapxcx.kanziqiang.top/$path -vn -f wav /home/wwwroot/mapxcx.kanziqiang.top/$newpath";
+            $exec1 = "avconv -i /home/wwwroot/gmapxcx.kanziqiang.top/$path -vn -f wav /home/wwwroot/gmapxcx.kanziqiang.top/$newpath";
             exec($exec1,$info,$status);
             chmod($newpath, 0777);
             //$d = base64_encode(file_get_contents("./".$newpath));
