@@ -5,7 +5,7 @@ class LoginController extends Controller {
 	//获取用户 openid
     public function getOpenid(){
     	$js_code = $_POST['js_code'];
-    	$appId = "wxf114f135bd757781";
+    	$appId = "wx5af7e48cb35a8395";
     	$appKey = "cd47c7fc9789a6753d420864b211abaa";
     	$url = "https://api.weixin.qq.com/sns/jscode2session?appid=$appId&secret=$appKey&js_code=$js_code&grant_type=authorization_code";
     	echo $this -> curl("",$url);
