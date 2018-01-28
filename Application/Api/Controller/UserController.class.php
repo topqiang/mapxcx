@@ -2,17 +2,15 @@
 namespace Api\Controller;
 use Think\Controller;
 class UserController extends Controller {
-	//用户登录
 
 	//周边wifi
 
-	public function getWifi(){
+	function getWifi(){
 		header('Content-type:text/html;charset=utf-8');
 		//配置您申请的appkey
 		$appkey = "4ad5dfa6f8a2d0aef3007582abfde133";
 		//************1.查询周边WIFI************
 		$data['uid'] = $_POST['uid'];
-        $data['keyword'] = $this -> filter_mark($_POST['keyword']);
         $has = $this -> history -> where( $data ) -> limit(1) -> select();
 		$data['lat'] = $_POST['latitude'];
 		$data['lnt'] = $_POST['longitude'];
