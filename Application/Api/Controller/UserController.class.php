@@ -37,7 +37,7 @@ class UserController extends Controller {
 	            }else{
 	            	$res = $this -> history -> add( $data );
 	            }
-	            apiResponse("success","查询成功！",$result['result']);
+	            apiResponse("success","查询成功！",$result['result']['data']);
 		    }else{
 		        echo $result['error_code'].":".$result['reason'];
 		    }
