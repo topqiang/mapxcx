@@ -51,6 +51,7 @@ class LoginController extends Controller {
 			$err['name'] = $userinfo['name'];
 			$err['sex'] = $userinfo['sex'];
 			$err['tel'] = $userinfo['tel'];
+			$err['num'] = $userinfo['num'];
 			echo json_encode(array('status'=>1,'arr'=>$err));
 			exit();
 		}else{
