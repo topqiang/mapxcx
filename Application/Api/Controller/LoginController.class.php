@@ -46,8 +46,8 @@ class LoginController extends Controller {
 			$changenum = M('user')->where('id='.intval($uid))->save($save);
 			$err = array();
 			$err['ID'] = intval($uid);
-			$err['NickName'] = $userinfo['uname'];
-			$err['HeadUrl'] = $userinfo['photo'];
+			$err['nickname'] = $userinfo['uname'];
+			$err['headurl'] = $userinfo['photo'];
 			$err['name'] = $userinfo['name'];
 			$err['sex'] = $userinfo['sex'];
 			$err['tel'] = $userinfo['tel'];
