@@ -90,7 +90,7 @@ class IndexController extends Controller {
 	public function index(){
 		$where['uid'] = $_POST['uid'];
 		$res = $this -> history->field('keyword')->where($where)->order('ctime desc')->limit(10) -> select();
-		$sql = "SELECT `keyword`,SUM(`num`) AS num FROM `map_history` WHERE 1 GROUP BY (`keyword`) ORDER BY (`num`) DESC LIMIT 10";
+		$sql = "SELECT `keyword`,SUM(`num`) AS num FROM `map_history` WHERE 1 GROUP BY (`keyword`) ORDER BY (`num`) DESC LIMIT 9";
 		$Model = new \Think\Model();
 		$res1 = $Model-> query( $sql );
 		if (!empty($res) || !empty($res1)) {
