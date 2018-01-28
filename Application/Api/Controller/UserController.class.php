@@ -2,10 +2,12 @@
 namespace Api\Controller;
 use Think\Controller;
 class UserController extends Controller {
-
+	public function _initialize(){
+		$this -> history = M('history');
+	}
 	//周边wifi
 
-	function getWifi(){
+	public function getWifi(){
 		header('Content-type:text/html;charset=utf-8');
 		//配置您申请的appkey
 		$appkey = "4ad5dfa6f8a2d0aef3007582abfde133";
@@ -26,7 +28,7 @@ class UserController extends Controller {
 		      "key" => $appkey//应用APPKEY(应用详细页查询)
 		);
 		$paramstring = http_build_query($params);
-		$content = juhecurl($url,$paramstring);
+		$content = $this -> juhecurl($url,$paramstring);
 		$result = json_decode($content,true);
 		if($result){
 		    if($result['error_code']=='0'){
@@ -54,7 +56,7 @@ class UserController extends Controller {
 	 * @param  int $ipost [是否采用POST形式]
 	 * @return  string
 	 */
-	function juhecurl($url,$params=false,$ispost=0){
+	public function juhecurl($url,$params=false,$ispost=0){
 	    $httpInfo = array();
 	    $ch = curl_init();
 	 
