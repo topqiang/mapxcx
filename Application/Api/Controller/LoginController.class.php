@@ -43,11 +43,14 @@ class LoginController extends Controller {
 		if ($uid) {
 			$save['num'] = $userinfo['num'] +1;
 			$save['utime'] = time();
-			$userinfo = M('user')->where('id='.intval($uid))->save($save);
+			$changenum = M('user')->where('id='.intval($uid))->save($save);
 			$err = array();
 			$err['ID'] = intval($uid);
 			$err['NickName'] = $userinfo['uname'];
 			$err['HeadUrl'] = $userinfo['photo'];
+			$err['name'] = $userinfo['name'];
+			$err['sex'] = $userinfo['sex'];
+			$err['tel'] = $userinfo['tel'];
 			echo json_encode(array('status'=>1,'arr'=>$err));
 			exit();
 		}else{

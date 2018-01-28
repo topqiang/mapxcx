@@ -5,8 +5,18 @@ class UserController extends Controller {
 	public function _initialize(){
 		$this -> history = M('history');
 	}
-	//周边wifi
+	//用户ID，查询用户信息
+	public function getUserInfo(){
+		$con['id']=$_POST['uid'];
+		$userinfo = M('user')->where($con)->find();
+		if (!empty($userinfo)) {
+			apiResponse("success","查询成功！",$result['result']['data']);
+		}else{
+			apiResponse("error","查询失败！");
+		}
+	}
 
+	//周边wifi
 	public function getWifi(){
 		header('Content-type:text/html;charset=utf-8');
 		//配置您申请的appkey
@@ -15,6 +25,7 @@ class UserController extends Controller {
 		$data['uid'] = $_POST['uid'];
         $has = $this -> history -> where( $data ) -> limit(1) -> select();
 		$data['lat'] = $_POST['latitude'];
+		$data['keyword'] = "wifi";
 		$data['lnt'] = $_POST['longitude'];
         $distinct = $_POST['distinct'];
         $data['ctime'] = time();
@@ -39,7 +50,7 @@ class UserController extends Controller {
 	            }
 	            apiResponse("success","查询成功！",$result['result']['data']);
 		    }else{
-		        echo $result['error_code'].":".$result['reason'];
+		        apiResponse("error","查询失败！",$result['error_code']);
 		    }
 		}else{
 		    echo "请求失败";
