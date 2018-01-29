@@ -35,8 +35,14 @@ class IndexController extends Controller {
 		}elseif ($res1['status']==0 && $res1['count']>0) {
             if (!empty($has)) {
                 $res = $this -> history -> where('id='.$has[0]['id'])->setInc('num');
-            }else{
+            }else {
                 $res = $this -> history -> add( $data );
+            }
+
+            if ($has[0]['status'] == 9) {
+                $newdata['id'] = $has[0]['id'];
+                $newdata['status'] = 0;
+                $res = $this -> history -> save( $newdata );
             }
 		}
 		print json_encode($res1);
