@@ -5,16 +5,6 @@ class ReportController extends Controller {
 	public function _initialize(){
 		$this -> report = M('Report');
 	}
-	//用户ID，查询用户信息
-	public function getUserInfo(){
-		$con['id']=$_POST['uid'];
-		$userinfo = M('user')->where($con)->find();
-		if (!empty($userinfo)) {
-			apiResponse("success","查询成功！",$result['result']['data']);
-		}else{
-			apiResponse("error","查询失败！");
-		}
-	}
 
 	public function setReport(){
 		$data['uid'] = $_POST['uid'];
