@@ -90,7 +90,7 @@ class IndexController extends Controller {
 	//获取关键热门词和历史搜索记录
 	public function index(){
 		$where['uid'] = $_POST['uid'];
-        $where['status'] = array('neq','9');
+        // $where['status'] = array('neq','9');
         $res = $this -> history->field('keyword')->where($where)->order('ctime desc')->limit(9) -> select();
 		$sql = "SELECT `keyword`,SUM(`num`) AS num FROM `map_history` WHERE 1 GROUP BY (`keyword`) ORDER BY (`num`) DESC LIMIT 10";
 		$Model = new \Think\Model();
