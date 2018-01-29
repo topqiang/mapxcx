@@ -16,6 +16,16 @@ class UserController extends Controller {
 		}
 	}
 
+	public function setInfo(){
+		$con['id']=$_POST['uid'];
+		$userinfo = M('user')->where($con)->find();
+		if (!empty($userinfo)) {
+			apiResponse("success","查询成功！",$result['result']['data']);
+		}else{
+			apiResponse("error","查询失败！");
+		}
+	}
+
 	//周边wifi
 	public function getWifi(){
 		header('Content-type:text/html;charset=utf-8');
