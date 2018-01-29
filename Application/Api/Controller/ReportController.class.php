@@ -15,7 +15,6 @@ class ReportController extends Controller {
 		$data['ctime'] = time();
 		$data['utime'] = time();
 		$data['status'] = 0;
-
 		$res = $this -> report -> add( $data );
 
 		if (!empty($res)) {

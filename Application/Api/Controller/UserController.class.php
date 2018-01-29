@@ -4,7 +4,27 @@ use Think\Controller;
 class UserController extends Controller {
 	public function _initialize(){
 		$this -> history = M('history');
+		$this -> user = M('user');
 	}
+	//修改用户信息
+	public function saveInfo(){
+		$data['id'] = $_POST['uid'];
+		$data['sex'] = $_POST['sex'];
+		$data['name'] = $_POST['name'];
+		$data['birth'] = $_POST['birth'];
+		$data['tel'] = $_POST['tel'];
+		if (empty($data['sex']) || empty($data['name']) || empty($data['birth']) || empty($data['tel'])) {
+			apiResponse("error","信息填写不完整！");
+		}
+		$res = $this -> user -> save($data);
+		if (!empty($res)) {
+			apiResponse("success","修改成功！");
+		}else{
+			apiResponse("error","修改失败！");
+		}
+	}
+
+
 	//用户ID，查询用户信息
 	public function getUserInfo(){
 		$con['id']=$_POST['uid'];
