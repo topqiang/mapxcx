@@ -38,7 +38,6 @@ class IndexController extends Controller {
             }else {
                 $res = $this -> history -> add( $data );
             }
-
             if ($has[0]['status'] == 9) {
                 $newdata['id'] = $has[0]['id'];
                 $newdata['status'] = 0;
