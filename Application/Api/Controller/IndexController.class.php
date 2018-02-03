@@ -6,6 +6,8 @@ class IndexController extends Controller {
 		$this -> key = "AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";
 		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?";
 		$this -> history = M('history');
+        $this -> taphis = M('taphis');
+
 	}
 	//检索关键词
 	public function search(){
@@ -46,6 +48,23 @@ class IndexController extends Controller {
 		}
 		print json_encode($res1);
 	}
+
+    public function putTaphis(){
+        $data['uid'] = $_POST['uid'];
+        $data['title'] = $_POST['title'];
+        $data['lat'] = $_POST['lat'];
+        $data['lnt'] = $_POST['lnt'];
+        $data['address'] = $_POST['address'];
+        $data['status'] = 0;
+        $data['ctime'] = time();
+        $res = $this -> taphis -> add($data);
+        if (!empty($res)) {
+            apiResponse("success","插入成功！");
+        }else{
+            apiResponse("error","插入失败！");
+        }
+    }
+
     //删除历史记录
     public function removehis(){
         $where['uid'] = $_POST['uid'];
