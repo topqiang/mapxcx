@@ -211,7 +211,9 @@ class IndexController extends Controller {
             $exec1 = "avconv -i /home/wwwroot/mapxcx.kanziqiang.top/$path -vn -f wav /home/wwwroot/mapxcx.kanziqiang.top/$newpath";
             exec($exec1,$info,$status);
             chmod($newpath, 0777);
-            $res['info'] = $info;
+            file_put_contents('1.txt',$exec1);
+            file_put_contents('2.txt',json_encode($info));
+
             //$d = base64_encode(file_get_contents("./".$newpath));
             $d = file_get_contents("./".$newpath);
 	        if ( !empty($tempfile) && $status == 0 ) {
