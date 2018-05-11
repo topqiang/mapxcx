@@ -3,7 +3,7 @@ namespace Api\Controller;
 use Think\Controller;
 class IndexController extends Controller {
 	public function _initialize(){
-		$this -> key = "AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";
+		$this -> key = "AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4";//"AJ3BZ-EPVCQ-NEY5U-G5H5V-2THSH-XFFI4"; qq地图
 		$this -> searchurl = "https://apis.map.qq.com/ws/place/v1/search?";
 		$this -> history = M('history');
         $this -> taphis = M('taphis');

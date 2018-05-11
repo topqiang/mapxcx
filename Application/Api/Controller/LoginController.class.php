@@ -2,6 +2,7 @@
 namespace Api\Controller;
 use Think\Controller;
 class LoginController extends Controller {
+	
 	//获取用户 openid
     public function getOpenid(){
     	$js_code = $_POST['js_code'];
