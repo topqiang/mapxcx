@@ -66,6 +66,7 @@ class LoginController extends Controller {
 			}
 			$res = M('user')->add($data);
 			if ($res) {
+				$data['id'] = $res;
 				echo json_encode(array('status'=>1,'arr'=>$data));
 				exit();
 			}else{
