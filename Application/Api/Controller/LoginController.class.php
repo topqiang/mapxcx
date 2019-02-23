@@ -45,39 +45,28 @@ class LoginController extends Controller {
 			$save['num'] = $userinfo['num'] +1;
 			$save['utime'] = time();
 			$changenum = M('user')->where('id='.intval($uid))->save($save);
-			$err = array();
-			$err['ID'] = intval($uid);
-			$err['nickname'] = $userinfo['uname'];
-			$err['headurl'] = $userinfo['photo'];
-			$err['name'] = $userinfo['name'];
-			$err['sex'] = $userinfo['sex'];
-			$err['birth'] = $userinfo['birth'];
-			$err['tel'] = $userinfo['tel'];
-			$err['num'] = $userinfo['num'];
-			echo json_encode(array('status'=>1,'arr'=>$err));
+			echo json_encode(array('status'=>1,'arr'=>$userinfo));
 			exit();
 		}else{
 			$data = array();
-			$data['name'] = $_POST['NickName'];
-			$data['uname'] = $_POST['NickName'];
-			$data['photo'] = $_POST['HeadUrl'];
-			$data['sex'] = $_POST['gender'];
-			$data['pwd'] = md5("123456");
 			$data['openid'] = $openid;
-			$data['source'] = 'wx';
-			$data['addtime'] = time();
-			$data['utime'] = time();
+			if (!empty($_POST['nickName']) && !empty($_POST['avatarUrl'])) {
+				$data['source'] = 'wx';
+				$data['name'] = $_POST['nickName'];
+				$data['uname'] = $_POST['nickName'];
+				$data['photo'] = $_POST['avatarUrl'];
+				$data['sex'] = $_POST['gender'];
+				$data['pwd'] = md5("123456");
+				$data['addtime'] = time();
+				$data['utime'] = time();
+			}
 			if (!$data['openid']) {
 				echo json_encode(array('status'=>0,'err'=>'授权失败！'.__LINE__));
 				exit();
 			}
 			$res = M('user')->add($data);
 			if ($res) {
-				$err = array();
-				$err['ID'] = intval($res);
-				$err['NickName'] = $data['name'];
-				$err['HeadUrl'] = $data['photo'];
-				echo json_encode(array('status'=>1,'arr'=>$err));
+				echo json_encode(array('status'=>1,'arr'=>$data));
 				exit();
 			}else{
 				echo json_encode(array('status'=>0,'err'=>'授权失败！'.__LINE__));
