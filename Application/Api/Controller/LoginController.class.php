@@ -30,6 +30,28 @@ class LoginController extends Controller {
         return $file_contents;
     }
 
+    public function updUser()
+    {	
+    	$message = "";
+    	if (empty($_POST['nickName']) || empty($_POST['avatarUrl'])) {
+    		$message="信息填写不完整！";
+    	}
+    	$where['id'] = $_POST['id'];
+    	$data['source'] = 'wx';
+			$data['name'] = $_POST['nickName'];
+			$data['uname'] = $_POST['nickName'];
+			$data['photo'] = $_POST['avatarUrl'];
+			$data['sex'] = $_POST['gender'];
+			$data['pwd'] = md5("123456");
+			$data['utime'] = time();
+    	$res = M('user')->where($where)->save($data);
+    	if (empty($res)) {
+    		apiResponse("error","完善信息失败！".$message);
+    	}else{
+    		apiResponse("success","完善信息成功！");
+    	}
+    }
+
 	//用户登录
 	public function authlogin(){
 		$openid = $_POST['openid'];
