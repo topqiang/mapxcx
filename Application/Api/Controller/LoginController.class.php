@@ -48,7 +48,8 @@ class LoginController extends Controller {
     	if (empty($res)) {
     		apiResponse("error","完善信息失败！".$message);
     	}else{
-    		apiResponse("success","完善信息成功！");
+    		$data['id'] = $_POST['id'];
+    		apiResponse("success","完善信息成功！",$data);
     	}
     }
 
