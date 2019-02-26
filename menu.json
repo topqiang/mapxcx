@@ -1,0 +1,11 @@
+[{
+  path:'https://www.baidu.com',
+  name:'欢迎访问我们的页面'
+},{
+  name:'分类',
+  path:'class.md',
+  children:[{
+    path:'https://www.taobao.com',
+    name:'分类文章'
+  }]
+}]
